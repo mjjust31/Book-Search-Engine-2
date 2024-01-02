@@ -14,7 +14,6 @@ const SavedBooks = () => {
   const userData = data?.me;
 
   console.log(userData);
-
   const handleDeleteBook = async (bookId) => {
     try {
       const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -23,10 +22,12 @@ const SavedBooks = () => {
         return false;
       }
 
+      console.log("Before removing book:", bookId);
       await removeBook({
-        variables: { bookId },
+        variables: { bookId: bookId },
         refetchQueries: [{ query: QUERY_ME }],
       });
+      console.log("After removing book:", bookId);
 
       removeBookId(bookId);
     } catch (err) {
@@ -37,6 +38,8 @@ const SavedBooks = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  const savedBooks = userData?.savedBooks || [];
 
   return (
     <>
