@@ -13,12 +13,14 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
       const newUser = await User.create({ username, email, password });
+      console.log(newUser)
       const token = signToken(newUser);
       return { token, newUser };
     },
-    login: async (parent, { username, password }) => {
+    login: async (parent, { email, password }) => {
       //need to confirm the login page on what it needs
-      const foundUser = await User.findOne({ username });
+      //login needs email
+      const foundUser = await User.findOne({ email });
 
       if (!foundUser) {
         throw AuthenticationError;
@@ -41,7 +43,7 @@ const resolvers = {
       }
     },
 
-    removeBook: async (parents, { bookId }, context) => {
+    removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
         return User.findByIdAndUpdate(
           {
