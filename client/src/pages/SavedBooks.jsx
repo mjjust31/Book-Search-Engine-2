@@ -21,20 +21,19 @@ const SavedBooks = () => {
       if (!token) {
         return false;
       }
-
       console.log("Before removing book:", bookId);
-      await removeBook({
+     const result = await removeBook({
         variables: { bookId: bookId },
         refetchQueries: [{ query: QUERY_ME }],
       });
       console.log("After removing book:", bookId);
-
+      console.log('Mutation result:', result);
+    
       removeBookId(bookId);
     } catch (err) {
       console.error(err);
     }
   };
-
   if (loading) {
     return <div>Loading...</div>;
   }
