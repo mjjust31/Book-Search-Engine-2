@@ -40,8 +40,15 @@ const SignupForm = () => {
       const { data } = await createUser({
         variables: { ...userFormData },
       });
-      console.log("data:", data);
+      console.log('GraphQL request:', createUser);
+      console.log('GraphQL response data:', data);
+      console.error('GraphQL response error:', error);
+      const newUser = data?.addUser?.newUser;
       const token = data?.addUser?.token;
+
+      if (token && newUser) {
+        console.log("newUser created", newUser);
+      }
 
       if (token) {
         Auth.login(token);

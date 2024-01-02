@@ -30,6 +30,15 @@ I also used the NU Learning Assistance when I got stuck to point me in the corre
 
 MIT
 
+## Futher Notes: 
+
+Learned very specifically about the payload found here and important naming conventions. Can even add an admin role for access on what they get in return. This was important for me to understand by changing the names of a new user and returning user.
+type Auth {
+  token: ID!
+  newUser: User
+  foundUser: User
+}
+
 
 
 
